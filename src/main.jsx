@@ -15,6 +15,7 @@ import RecipeDetails from './Layout/RecipeDetails.jsx';
 import AllRecipes from './Layout/AllRecipes.jsx';
 import AddRecipe from './Layout/AddRecipe.jsx';
 import MyRecipe from './Layout/MyRecipe.jsx';
+import AuthGuard from './Firebase/AuthGuard.jsx';
 
 const router = createBrowserRouter([
   {
@@ -37,32 +38,37 @@ const router = createBrowserRouter([
         path: "register",
         Component: Register,
       },
-      {
-        path: "recipe/:id",
-        Component: RecipeDetails,
-      },
-      {
-        path: "addrecipe",
-        Component: AddRecipe,
-      },
-      {
-        path: "myrecipes",
-        Component: MyRecipe,
-      },
-      // Private Routes
       // {
-      //   Component: PrivateRoute, // This will wrap the private routes
-      //   children: [
-      //     {
-      //       path: "addrecipe",
-      //       Component: AddRecipe,
-      //     },
-      //     {
-      //       path: "my-recipes",
-      //       Component: MyRecipes,
-      //     },
-      //   ],
+      //   path: "recipe/:id",
+      //   Component: RecipeDetails,
       // },
+      // {
+      //   path: "addrecipe",
+      //   Component: AddRecipe,
+      // },
+      // {
+      //   path: "myrecipes",
+      //   Component: MyRecipe,
+      // },
+      // Protected Routes
+      {
+        // This route will use AuthGuard to protect its children
+        Component: AuthGuard ,
+        children: [
+          {
+            path: "recipe/:id", 
+            Component: RecipeDetails,
+          },
+          {
+            path: "addrecipe",
+            Component: AddRecipe,
+          },
+          {
+            path: "myrecipes",
+            Component: MyRecipe,
+          },
+        ],
+      },
     ],
   },
   {
