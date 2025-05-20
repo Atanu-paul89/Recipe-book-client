@@ -38,37 +38,19 @@ const router = createBrowserRouter([
         path: "register",
         Component: Register,
       },
-      // {
-      //   path: "recipe/:id",
-      //   Component: RecipeDetails,
-      // },
-      // {
-      //   path: "addrecipe",
-      //   Component: AddRecipe,
-      // },
-      // {
-      //   path: "myrecipes",
-      //   Component: MyRecipe,
-      // },
-      // Protected Routes
       {
-        // This route will use AuthGuard to protect its children
-        Component: AuthGuard ,
-        children: [
-          {
-            path: "recipe/:id", 
-            Component: RecipeDetails,
-          },
-          {
-            path: "addrecipe",
-            Component: AddRecipe,
-          },
-          {
-            path: "myrecipes",
-            Component: MyRecipe,
-          },
-        ],
+        path: "recipe/:id",
+        element: <AuthGuard><RecipeDetails></RecipeDetails></AuthGuard>
       },
+      {
+        path: "addrecipe",
+        element: <AuthGuard><AddRecipe></AddRecipe> </AuthGuard>
+      },
+      {
+        path: "myrecipes",
+        element:<AuthGuard><MyRecipe></MyRecipe> </AuthGuard>
+      },
+
     ],
   },
   {

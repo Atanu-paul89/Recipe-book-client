@@ -44,11 +44,15 @@ const Navbar = () => {
             await signOut(auth);
             // toast.success("Logged out successfully!"); 
             Swal.fire({
-                position: "top-end",
+                position: "top-end", 
                 icon: "success",
                 title: `${user?.displayName || user?.email || 'User'} logged out!`,
-                showConfirmButton: false,
-                timer: 1500
+                showConfirmButton: false, 
+                timer: 1500, 
+                background: '#2d3748', 
+                color: '#edf2f7',       
+                width: 'auto',          
+                padding: '0.8em 1.2em', 
             });
             navigate('/');
         } catch (error) {
@@ -119,8 +123,7 @@ const Navbar = () => {
                                 </li>
                             </ul>
                         </div>
-                        {/* Logout button (optional, if you want it outside the dropdown for larger screens) */}
-                        <button onClick={openLogoutModal} className="hidden md:inline-flex btn bg-transparent border border-blue-400 text-blue-400 rounded-lg hover:bg-blue-600 hover:text-white px-4 py-2 transition-colors duration-300">Logout</button>
+
                     </div>
                 ) : (
                     <div className="flex items-center space-x-3">

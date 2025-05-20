@@ -1,10 +1,10 @@
 
 import Banner from '../Components/Banner';
-import { NavLink } from 'react-router'; 
+import { NavLink } from 'react-router';
 
 const dummyTopRecipes = [
     {
-        _id: 'rec1', 
+        _id: 'rec1',
         image: 'https://images.unsplash.com/photo-1728910107534-e04e261768ae?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         title: 'Spicy Chicken Curry',
         cuisineType: 'Indian',
@@ -55,6 +55,9 @@ const dummyTopRecipes = [
 
 
 const Home = () => {
+    const scrollToTopAndNavigate = () => {
+        window.scrollTo(0, 0);
+    };
     return (
         <div className="bg-gray-900 text-white min-h-screen">
             {/* Navbar and Footer are handled by MainLayout */}
@@ -81,7 +84,7 @@ const Home = () => {
 
                                     {/* You will use NavLink for actual navigation here */}
                                     <NavLink to={`/recipe/${recipe._id}`} className="block text-center">
-                                        <button
+                                        <button onClick={scrollToTopAndNavigate}
                                             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-200 cursor-pointer"
                                         >
                                             View Details
@@ -94,7 +97,7 @@ const Home = () => {
                     <div className="text-center mt-10">
                         {/* You will use NavLink for actual navigation here */}
                         <NavLink to="/allrecipes">
-                            <button
+                            <button 
                                 className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
                             >
                                 See All Recipes
