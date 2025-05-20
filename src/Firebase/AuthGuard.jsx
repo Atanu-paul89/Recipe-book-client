@@ -11,7 +11,15 @@ const AuthGuard = ({ children }) => {
     }
 
     if (!user) {
-
+        Swal.fire({
+            icon: 'warning',
+            title: 'Unauthorized Access',
+            text: 'You need to be logged in to view this page.',
+            confirmButtonText: 'OK',
+            background: '#333',
+            color: '#fff',
+            confirmButtonColor: '#2563eb'
+        });
         return <Navigate to='/login'></Navigate>
     }
 
