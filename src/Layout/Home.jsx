@@ -37,7 +37,7 @@ const dummyTopRecipes = [
     },
     {
         _id: 'rec5',
-        image: 'https://images.unsplash.com/photo-1551025502-3c8115682894?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        image: 'https://images.unsplash.com/photo-1665556387816-cba60197beec?q=80&w=2130&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         title: 'Decadent Chocolate Lava Cake',
         cuisineType: 'Dessert',
         likeCount: 88,
@@ -45,7 +45,7 @@ const dummyTopRecipes = [
     },
     {
         _id: 'rec6',
-        image: 'https://images.unsplash.com/photo-1512621776951-a579eddc87f2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        image: 'https://images.unsplash.com/photo-1579349443343-73da56a71a20?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         title: 'Nutrient-Rich Vegan Buddha Bowl',
         cuisineType: 'Vegan',
         likeCount: 80,
