@@ -82,7 +82,7 @@ const Home = () => {
                                     {/* You will use NavLink for actual navigation here */}
                                     <NavLink to={`/recipe/${recipe._id}`} className="block text-center">
                                         <button
-                                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-200"
+                                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-200 cursor-pointer"
                                         >
                                             View Details
                                         </button>
@@ -95,7 +95,7 @@ const Home = () => {
                         {/* You will use NavLink for actual navigation here */}
                         <NavLink to="/allrecipes">
                             <button
-                                className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                                className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
                             >
                                 See All Recipes
                             </button>
