@@ -97,7 +97,7 @@ const Home = () => {
                     <div className="text-center mt-10">
                         {/* You will use NavLink for actual navigation here */}
                         <NavLink to="/allrecipes">
-                            <button 
+                            <button onClick={scrollToTopAndNavigate}
                                 className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
                             >
                                 See All Recipes

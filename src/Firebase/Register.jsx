@@ -173,7 +173,7 @@ const Register = () => {
         // At least one lowercase letter
         const hasLowercase = /[a-z]/.test(password);
         // At least one special character (using common special characters)
-        const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password);
+        const hasSpecialChar = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(password);
         // Length must be at least 8 characters
         const isLongEnough = password.length >= 8;
 
