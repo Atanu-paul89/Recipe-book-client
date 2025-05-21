@@ -6,6 +6,10 @@ const AllRecipes = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const scrollToTopAndNavigate = () => {
+        window.scrollTo(0, 0);
+    };
+
     useEffect(() => {
         const fetchAllRecipes = async () => {
             try {
@@ -96,8 +100,8 @@ const AllRecipes = () => {
                             )}
 
                             <div className="mt-auto pt-4"> {/* Push button to bottom */}
-                                <Link
-                                    to={`/recipe-details/${recipe._id}`} // Link to the details page
+                                <Link onClick={scrollToTopAndNavigate}
+                                    to={`/recipe/${recipe._id}`}
                                     className="block w-full text-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors duration-200"
                                 >
                                     See Details

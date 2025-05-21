@@ -90,11 +90,11 @@ const Home = () => {
                                     */}
 
                                     {/* Use Link from react-router-dom and remove the onClick for scroll, router handles it better */}
-                                    <Link to={`/recipe-details/${recipe._id}`} className="block text-center mt-auto">
-                                        <button
+                                    <Link to={`/recipe/${recipe._id}`} className="block text-center mt-auto">
+                                        <button onClick={scrollToTopAndNavigate}
                                             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors duration-200 cursor-pointer"
                                         >
-                                            View Details
+                                            See Details
                                         </button>
                                     </Link>
                                 </div>

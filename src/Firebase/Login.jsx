@@ -1,4 +1,9 @@
-import React, { useState, useContext } from 'react';
+
+
+
+
+
+import React, { useState, useContext, useEffect } from 'react';
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from 'react-router';
 import { AuthContext } from './AuthContext';
@@ -6,103 +11,136 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from './firebase.config';
+import Swal from 'sweetalert2';
 
 
 const Login = () => {
-    const { signinuser, PasswordReset } = useContext(AuthContext);
+    const { signinuser, PasswordReset, user } = useContext(AuthContext); 
     const [errormsge, seterrormsge] = useState("");
     const navigate = useNavigate();
     const provider = new GoogleAuthProvider();
     const [isForgotPasswordModalOpen, setIsForgotPasswordModalOpen] = useState(false);
     const [resetEmail, setResetEmail] = useState('');
 
+
+    useEffect(() => {
+        console.log("Login useEffect: User state changed. Current user:", user);
+        if (user) {
+            console.log("User detected, navigating to '/'");
+            navigate('/');
+        }
+    }, [user, navigate]);
+
     const handleLogin = async (e) => {
         e.preventDefault();
+
+
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(email, password, errormsge);
-        signinuser(email, password)
-            .then(res => {
-                console.log("login done", res.user.email);
-                toast.success('Login Successful!', {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    onClose: () => {
-                        navigate('/');
-                    },
-                });
-            })
-            .catch(error => {
-                console.error("Login Error:", error);
-                let errorMessage = "Login failed";
-                if (error.code === 'auth/user-not-found') {
-                    errorMessage = "User not found. Please check your email.";
-                } else if (error.code === 'auth/wrong-password') {
-                    errorMessage = "Incorrect password. Please try again.";
-                } else if (error.code === 'auth/invalid-credential') {
-                    errorMessage = "Invalid login credentials. Please check your email and password.";
-                } else {
-                    errorMessage = "An unexpected error occurred. Please try again later.";
-                }
-                toast.error(errorMessage, {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: false,
-                    theme: "light",
-                });
-                seterrormsge(errorMessage);
+        seterrormsge("");
+
+        try {
+
+            const res = await signinuser(email, password); 
+            console.log("signinuser succeeded. Response:", res); 
+
+            // toast.success('Login Successful!', {
+            //     position: "top-right",
+            //     autoClose: 2000,
+            //     hideProgressBar: false,
+            //     closeOnClick: true,
+            //     pauseOnHover: true,
+            //     draggable: true,
+            //     progress: undefined,
+            //     theme: "light",
+            // });
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: ` successfully logged in`,
+                showConfirmButton: false,
+                timer: 1500
             });
+
+
+
+        } catch (error) {
+            console.error("Login Error in catch block:", error); // TRACE 8
+            let errorMessage = "Login failed";
+            if (error.code === 'auth/user-not-found') {
+                errorMessage = "User not found. Please check your email.";
+            } else if (error.code === 'auth/wrong-password') {
+                errorMessage = "Incorrect password. Please try again.";
+            } else if (error.code === 'auth/invalid-credential') {
+                errorMessage = "Invalid login credentials. Please check your email and password.";
+            } else {
+                errorMessage = `An unexpected error occurred: ${error.message}. Please try again later.`;
+            }
+            toast.error(errorMessage, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: false,
+                theme: "light",
+            });
+            console.log("Toast error called with message:", errorMessage); 
+            seterrormsge(errorMessage);
+            console.log("errormsge state updated:", errorMessage); 
+        } finally {
+            console.log("handleLogin finally block executed."); 
+        }
     };
 
-    const handlegooglesignin = () => {
-        signInWithPopup(auth, provider)
-            .then(res => {
-                console.log(res);
-                toast.success('Login with Google Successful!', {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    onClose: () => {
-                        navigate('/');
-                    },
-                });
-            })
-            .catch(error => {
-                console.log(error);
-                let errorMessage = "Google sign-in failed.";
-                if (error.code === 'auth/popup-closed-by-user') {
-                    errorMessage = "Google sign-in was cancelled by the user.";
-                } else if (error.code === 'auth/network-request-failed') {
-                    errorMessage = "Network error during Google sign-in. Please check your connection.";
-                } else {
-                    errorMessage = error.message;
-                }
-                toast.error(errorMessage, {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: false,
-                    theme: "light",
-                });
+    const handlegooglesignin = async () => { 
+        console.log("handlegooglesignin started."); 
+        seterrormsge(""); 
+
+        try {
+            console.log("Calling signInWithPopup..."); 
+            const res = await signInWithPopup(auth, provider); 
+            console.log("signInWithPopup succeeded. Response:", res); 
+
+            toast.success('Login with Google Successful!', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
             });
+
+
+        } catch (error) {
+            console.error("Google Sign-in Error in catch block:", error); 
+            let errorMessage = "Google sign-in failed.";
+            if (error.code === 'auth/popup-closed-by-user') {
+                errorMessage = "Google sign-in was cancelled by the user.";
+            } else if (error.code === 'auth/network-request-failed') {
+                errorMessage = "Network error during Google sign-in. Please check your connection.";
+            } else {
+                errorMessage = error.message;
+            }
+            toast.error(errorMessage, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: false,
+                theme: "light",
+            });
+            console.log("Toast error (Google) called with message:", errorMessage);
+            seterrormsge(errorMessage);
+            console.log("errormsge state updated (Google):", errorMessage); 
+        } finally {
+            console.log("handlegooglesignin finally block executed."); 
+        }
     };
 
     const openForgotPasswordModal = () => {
@@ -114,7 +152,7 @@ const Login = () => {
         setResetEmail('');
     };
 
-    const handleResetPassword = () => {
+    const handleResetPassword = async () => { 
         if (!resetEmail) {
             toast.error('Please enter your email address.', {
                 position: "top-right",
@@ -129,36 +167,36 @@ const Login = () => {
             return;
         }
 
-        PasswordReset(resetEmail) 
-            .then(() => {
-                toast.success('Password reset email sent! Please check your inbox.', {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-                closeForgotPasswordModal();
-            })
-            .catch((error) => {
-                toast.error(`Failed to send reset email: ${error.message}`, {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
+        try {
+            await PasswordReset(resetEmail);
+            toast.success('Password reset email sent! Please check your inbox.', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
             });
+            closeForgotPasswordModal();
+        } catch (error) {
+            toast.error(`Failed to send reset email: ${error.message}`, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
     };
 
+
     return (
-        <div className="bg-gray-900 mb-0  mt-0  bg-[url('https://plus.unsplash.com/premium_photo-1669557209110-34d9a507d1f9?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center h-screen flex justify-center md:justify-end items-center font-sans">
+        <div className="bg-gray-900 mb-0 mt-0 bg-[url('https://plus.unsplash.com/premium_photo-1669557209110-34d9a507d1f9?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center h-screen flex justify-center md:justify-end items-center font-sans">
             <div className="bg-white/10 rounded-xl mr-8 lg:mr-10 shadow-lg backdrop-filter backdrop-blur-md border border-white/30 p-5 md:p-10 w-96 max-w-md text-center mx-8">
                 <h2 className="text-3xl font-bold text-[#804AC4] mb-6">Login</h2>
                 <form onSubmit={handleLogin}>
@@ -176,6 +214,10 @@ const Login = () => {
                         className="bg-white/20 border border-white/50 rounded-lg py-3 px-4 mb-4 w-full text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-[#A85CCD] font-bold"
                         required
                     />
+                    {/* Add this to display error message directly on the form */}
+                    {errormsge && (
+                        <p className="text-red-500 text-sm mb-4">{errormsge}</p>
+                    )}
                     <div className="flex justify-start mb-4 text-sm text-gray-300">
                         <button type="button" onClick={openForgotPasswordModal} className="hover:underline text-[#804AC4] focus:outline-none cursor-pointer">
                             Forgot Password?
@@ -219,13 +261,12 @@ const Login = () => {
                     </div>
                 </div>
             )}
-            <ToastContainer />
+            {/* <ToastContainer /> */}
         </div>
     );
 };
 
 export default Login;
-
 
 
 

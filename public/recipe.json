@@ -1,5 +1,18 @@
 [
   {
+    "image": "https://images.unsplash.com/photo-1589148483267-27a9446f8823?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "title": "Spicy Kadai Chicken ",
+    "ingredients": "Chicken breast, Peanuts, Dried chilies, Sichuan peppercorns, Soy sauce, Vinegar, Sugar, Cornstarch, Green onions",
+    "instructions": "1. Marinate chicken. Prepare sauce. Stir-fry chilies and peppercorns.\n2. Add chicken and cook. Stir in peanuts and sauce.\n3. Garnish with green onions. Serve with rice.",
+    "cuisineType": "Chinese",
+    "preparationTime": 35,
+    "categories": ["Dinner"],
+    "likes": 210,
+    "userEmail": "spicy.lover@example.com",
+    "userName": "Chen Li",
+    "userPhoto": "https://randomuser.me/api/portraits/men/12.jpg"
+  },
+  {
     "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "title": "Classic Spaghetti Carbonara",
     "ingredients": "200g spaghetti, 100g guanciale (or pancetta), 2 large egg yolks, 50g Pecorino Romano cheese, Black pepper",
@@ -141,18 +154,6 @@
     "userEmail": "sweet.tooth@example.com",
     "userName": "Anjali Singh",
     "userPhoto": "https://randomuser.me/api/portraits/women/11.jpg"
-  },
-  {
-    "image": "https://images.unsplash.com/photo-1589148483267-27a9446f8823?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "title": "Kung Pao Chicken",
-    "ingredients": "Chicken breast, Peanuts, Dried chilies, Sichuan peppercorns, Soy sauce, Vinegar, Sugar, Cornstarch, Green onions",
-    "instructions": "1. Marinate chicken. Prepare sauce. Stir-fry chilies and peppercorns.\n2. Add chicken and cook. Stir in peanuts and sauce.\n3. Garnish with green onions. Serve with rice.",
-    "cuisineType": "Chinese",
-    "preparationTime": 35,
-    "categories": ["Dinner"],
-    "likes": 210,
-    "userEmail": "spicy.lover@example.com",
-    "userName": "Chen Li",
-    "userPhoto": "https://randomuser.me/api/portraits/men/12.jpg"
   }
+  
 ]
