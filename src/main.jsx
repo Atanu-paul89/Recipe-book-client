@@ -16,6 +16,7 @@ import AllRecipes from './Layout/AllRecipes.jsx';
 import AddRecipe from './Layout/AddRecipe.jsx';
 import MyRecipe from './Layout/MyRecipe.jsx';
 import AuthGuard from './Firebase/AuthGuard.jsx';
+import EditRecipe from './Layout/EditRecipe.jsx';
 
 const router = createBrowserRouter([
   {
@@ -48,7 +49,11 @@ const router = createBrowserRouter([
       },
       {
         path: "myrecipes",
-        element:<AuthGuard><MyRecipe></MyRecipe> </AuthGuard>
+        element: <AuthGuard><MyRecipe></MyRecipe> </AuthGuard>
+      },
+      {
+        path: "edit-recipe/:id", 
+        element: <AuthGuard><EditRecipe></EditRecipe></AuthGuard> 
       },
 
     ],

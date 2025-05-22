@@ -1,6 +1,7 @@
 
 import React, { useState, useContext } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
+// import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router';
 import { AuthContext } from '../Firebase/AuthContext';
@@ -242,7 +243,7 @@ const AddRecipe = () => {
                     </div>
                 </form>
             </div>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
         </div>
     );
 };
