@@ -33,12 +33,14 @@ const Register = () => {
 
         if (!hasUppercase) {
             seterrormsge('Password must contain at least one uppercase letter.');
-            toast.error('Password must contain at least one uppercase letter.', { theme: "dark" }); 
+            toast.error('Password must contain at least one uppercase letter.', 
+                { theme: "dark" }); 
             return; 
         }
         if (!hasLowercase) {
             seterrormsge('Password must contain at least one lowercase letter.');
-            toast.error('Password must contain at least one lowercase letter.', { theme: "dark" });
+            toast.error('Password must contain at least one lowercase letter.', 
+                { theme: "dark" });
             return; 
         }
         if (!hasSpecialChar) {
@@ -53,7 +55,8 @@ const Register = () => {
         }
         if (!checked) {
             seterrormsge('You must accept the terms and conditions to register.');
-            toast.error('You must accept the terms and conditions to register.', { theme: "dark" });
+            toast.error('You must accept the terms and conditions to register.', 
+                { theme: "dark" });
             return;
         }
 
@@ -61,13 +64,13 @@ const Register = () => {
 
         try {
             const res = await createUser(email, password);
+            navigate('/');
             console.log("Registration successful for:", res.user.email);
 
             await updateProfile(res.user, {
                 displayName: name,
                 photoURL: photoURL,
             });
-
             toast.success('Registration Successful! Profile updated. Redirecting...', {
                 position: "top-right",
                 autoClose: 1000,
@@ -78,7 +81,6 @@ const Register = () => {
                 progress: undefined,
                 theme: "dark", 
                 onClose: () => {
-                    navigate('/');
                 },
             });
 

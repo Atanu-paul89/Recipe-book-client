@@ -39,28 +39,20 @@ const Login = () => {
             const res = await signinuser(email, password); 
             console.log("signinuser succeeded. Response:", res); 
 
-            // toast.success('Login Successful!', {
-            //     position: "top-right",
-            //     autoClose: 2000,
-            //     hideProgressBar: false,
-            //     closeOnClick: true,
-            //     pauseOnHover: true,
-            //     draggable: true,
-            //     progress: undefined,
-            //     theme: "light",
-            // });
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: ` successfully logged in`,
-                showConfirmButton: false,
-                timer: 1500
+            toast.success('Login Successful!', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
             });
 
 
-
         } catch (error) {
-            console.error("Login Error in catch block:", error); // TRACE 8
+            console.error("Login Error in catch block:", error); 
             let errorMessage = "Login failed";
             if (error.code === 'auth/user-not-found') {
                 errorMessage = "User not found. Please check your email.";

@@ -17,6 +17,7 @@ import AddRecipe from './Layout/AddRecipe.jsx';
 import MyRecipe from './Layout/MyRecipe.jsx';
 import AuthGuard from './Firebase/AuthGuard.jsx';
 import EditRecipe from './Layout/EditRecipe.jsx';
+import { ToastContainer } from 'react-toastify';
 
 const router = createBrowserRouter([
   {
@@ -52,8 +53,8 @@ const router = createBrowserRouter([
         element: <AuthGuard><MyRecipe></MyRecipe> </AuthGuard>
       },
       {
-        path: "edit-recipe/:id", 
-        element: <AuthGuard><EditRecipe></EditRecipe></AuthGuard> 
+        path: "edit-recipe/:id",
+        element: <AuthGuard><EditRecipe></EditRecipe></AuthGuard>
       },
 
     ],
@@ -66,6 +67,18 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick={false}
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+    />
     <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>
