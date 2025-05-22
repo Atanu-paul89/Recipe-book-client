@@ -4,7 +4,7 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { NavLink } from 'react-router'; // Corrected import for NavLink
+import { NavLink } from 'react-router'; 
 
 
 const banner1 = "https://images.unsplash.com/photo-1608120181805-8896890318da?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
@@ -20,9 +20,7 @@ const Banner = () => {
     return (
         <div className=' md:px-10 mt-2 md:mt-3'>
             {/* Banner Slider */}
-            {/* It's generally not recommended to wrap the entire Swiper in a NavLink, 
-                as it makes the entire slider clickable to one destination. 
-                Consider adding a button/link inside each slide if different actions are desired. */}
+
             <NavLink to={'/allrecipes'}>
             <Swiper
                 modules={[Autoplay, Pagination, Navigation]}
@@ -39,7 +37,7 @@ const Banner = () => {
             >
                 <SwiperSlide>
                     <div
-                        className="bg-no-repeat bg-cover bg-center h-64 md:h-[500px] rounded-2xl relative flex items-center justify-center" // Added flex for content centering
+                        className="bg-no-repeat bg-cover bg-center h-64 md:h-[500px] rounded-2xl relative flex items-center justify-center" 
                         style={{ backgroundImage: `url('${banner1}')` }}
                     >
                         {/* Overlay for text readability */}

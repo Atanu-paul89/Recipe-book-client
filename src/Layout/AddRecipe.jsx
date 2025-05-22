@@ -1,6 +1,5 @@
 
 import React, { useState, useContext } from 'react';
-// import { toast, ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router';
@@ -11,7 +10,7 @@ const AddRecipe = () => {
     const navigate = useNavigate();
 
     const [title, setTitle] = useState('');
-    // CHANGE 1: Use ingredientsInput and instructionsInput to store the textarea string
+
     const [ingredientsInput, setIngredientsInput] = useState('');
     const [instructionsInput, setInstructionsInput] = useState('');
     const [cuisineType, setCuisineType] = useState('');
@@ -42,20 +41,19 @@ const AddRecipe = () => {
             .filter(([, value]) => value)
             .map(([key]) => key);
 
-        // CHANGE 2: Convert ingredient and instruction strings to arrays here
+        
         const ingredientsArray = ingredientsInput
-            .split('\n') // Split by new line
-            .map(item => item.trim()) // Remove leading/trailing whitespace
-            .filter(item => item !== ''); // Remove any empty strings (e.g., from extra newlines)
+            .split('\n') 
+            .map(item => item.trim()) 
+            .filter(item => item !== ''); 
 
         const instructionsArray = instructionsInput
-            .split('\n') // Split by new line
-            .map(item => item.trim()) // Remove leading/trailing whitespace
-            .filter(item => item !== ''); // Remove any empty strings
+            .split('\n') 
+            .map(item => item.trim()) 
+            .filter(item => item !== ''); 
 
         const recipeData = {
             title,
-            // CHANGE 3: Use the newly created arrays
             ingredients: ingredientsArray,
             instructions: instructionsArray,
             cuisineType,
@@ -71,7 +69,7 @@ const AddRecipe = () => {
         console.log("Recipe data to send:", recipeData);
 
         try {
-            const backendUrl = "http://localhost:3000"; // Or your deployed backend URL
+            const backendUrl = "http://localhost:3000"; 
             const response = await fetch(`${backendUrl}/recipes`, {
                 method: 'POST',
                 headers: {
@@ -85,9 +83,8 @@ const AddRecipe = () => {
             if (response.ok) {
                 toast.success('Recipe added successfully!', { theme: "dark" });
                 console.log('Recipe added:', data);
-                // Clear form fields after successful submission
+
                 setTitle('');
-                // CHANGE 4: Reset the input strings, not empty arrays
                 setIngredientsInput('');
                 setInstructionsInput('');
                 setCuisineType('');
@@ -153,7 +150,7 @@ const AddRecipe = () => {
                         </label>
                         <textarea
                             id="ingredients"
-                            // CHANGE 5: Bind to ingredientsInput state
+
                             value={ingredientsInput}
                             onChange={(e) => setIngredientsInput(e.target.value)}
                             className="w-full p-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 min-h-[100px]"
@@ -168,7 +165,7 @@ const AddRecipe = () => {
                         </label>
                         <textarea
                             id="instructions"
-                            // CHANGE 6: Bind to instructionsInput state
+
                             value={instructionsInput}
                             onChange={(e) => setInstructionsInput(e.target.value)}
                             className="w-full p-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 min-h-[150px]"
@@ -243,7 +240,7 @@ const AddRecipe = () => {
                     </div>
                 </form>
             </div>
-            {/* <ToastContainer /> */}
+
         </div>
     );
 };

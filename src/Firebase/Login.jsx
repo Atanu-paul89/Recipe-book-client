@@ -1,8 +1,3 @@
-
-
-
-
-
 import React, { useState, useContext, useEffect } from 'react';
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from 'react-router';
@@ -156,7 +151,7 @@ const Login = () => {
         if (!resetEmail) {
             toast.error('Please enter your email address.', {
                 position: "top-right",
-                autoClose: 3000,
+                autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -214,10 +209,11 @@ const Login = () => {
                         className="bg-white/20 border border-white/50 rounded-lg py-3 px-4 mb-4 w-full text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-[#A85CCD] font-bold"
                         required
                     />
-                    {/* Add this to display error message directly on the form */}
+                   
                     {errormsge && (
                         <p className="text-red-500 text-sm mb-4">{errormsge}</p>
                     )}
+
                     <div className="flex justify-start mb-4 text-sm text-gray-300">
                         <button type="button" onClick={openForgotPasswordModal} className="hover:underline text-[#804AC4] focus:outline-none cursor-pointer">
                             Forgot Password?
@@ -261,7 +257,7 @@ const Login = () => {
                     </div>
                 </div>
             )}
-            {/* <ToastContainer /> */}
+
         </div>
     );
 };

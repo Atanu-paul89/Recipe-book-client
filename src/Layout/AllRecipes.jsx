@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router'; // For the "See Details" button
+import { Link } from 'react-router'; 
 
 const AllRecipes = () => {
     const [recipes, setRecipes] = useState([]);
@@ -13,10 +13,8 @@ const AllRecipes = () => {
     useEffect(() => {
         const fetchAllRecipes = async () => {
             try {
-                const backendUrl = "http://localhost:3000"; // Your backend URL
-                // If you deploy your backend, update this URL
-                // const backendUrl = "https://your-recipe-book-server.vercel.app";
-
+                const backendUrl = "http://localhost:3000"; 
+                
                 const response = await fetch(`${backendUrl}/recipes`);
                 const data = await response.json();
 
@@ -34,8 +32,7 @@ const AllRecipes = () => {
         };
 
         fetchAllRecipes();
-    }, []); // Empty dependency array means this runs once on component mount
-
+    }, []); 
     if (loading) {
         return (
             <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
@@ -92,14 +89,14 @@ const AllRecipes = () => {
                             <p className="text-gray-400 text-sm mb-3">
                                 <span className="font-medium text-blue-300">Likes:</span> {recipe.likeCount}
                             </p>
-                            {/* Display 3-4 information about the recipe as per requirement [cite: 48] */}
+
                             {recipe.categories && recipe.categories.length > 0 && (
                                 <p className="text-gray-400 text-sm mb-3">
                                     <span className="font-medium text-blue-300">Categories:</span> {recipe.categories.join(', ')}
                                 </p>
                             )}
 
-                            <div className="mt-auto pt-4"> {/* Push button to bottom */}
+                            <div className="mt-auto pt-4"> 
                                 <Link onClick={scrollToTopAndNavigate}
                                     to={`/recipe/${recipe._id}`}
                                     className="block w-full text-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors duration-200"

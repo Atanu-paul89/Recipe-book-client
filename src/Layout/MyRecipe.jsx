@@ -1,24 +1,25 @@
+
 import React, { useState, useEffect, useContext } from 'react';
-import { AuthContext } from '../Firebase/AuthContext'; // Adjust path if necessary
-import { useNavigate } from 'react-router'; // Use react-router-dom for navigation
-import { toast } from 'react-toastify'; // Import toast for notifications
-import Swal from 'sweetalert2'; // For confirmation dialogs (install if you haven't: npm install sweetalert2)
-import axios from 'axios'; // For easier HTTP requests (install if you haven't: npm install axios)
+import { AuthContext } from '../Firebase/AuthContext'; 
+import { Link, useNavigate } from 'react-router'; 
+import { toast } from 'react-hot-toast'; 
+import Swal from 'sweetalert2'; 
+import axios from 'axios'; 
 
 const MyRecipe = () => {
-    const { user, loading } = useContext(AuthContext); // Get user and loading state
+    const { user, loading } = useContext(AuthContext); 
     const [myRecipes, setMyRecipes] = useState([]);
     const [isLoadingRecipes, setIsLoadingRecipes] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    const backendUrl = "http://localhost:3000"; // Your backend URL
+    const backendUrl = "http://localhost:3000"; 
 
-    // Function to fetch recipes
+   
     const fetchMyRecipes = async () => {
         if (!user || !user.email) {
             setIsLoadingRecipes(false);
-            return; // Don't fetch if user or user.email is not available
+            return; 
         }
 
         setIsLoadingRecipes(true);
@@ -35,21 +36,20 @@ const MyRecipe = () => {
         }
     };
 
-    // useEffect to trigger fetch when component mounts or user changes
+
     useEffect(() => {
-        // Only fetch if user is loaded and available
+
         if (!loading && user) {
             fetchMyRecipes();
         }
-        // If user is null and not loading, it means no user logged in, so clear recipes
+ 
         if (!loading && !user) {
             setMyRecipes([]);
             setIsLoadingRecipes(false);
-            navigate('/login'); // Redirect to login if not authenticated
+            navigate('/login'); 
         }
-    }, [user, loading, navigate]); // Depend on user and loading from AuthContext
+    }, [user, loading, navigate]); 
 
-    // --- Handlers for Edit and Delete ---
 
     const handleDelete = async (id) => {
         Swal.fire({
@@ -94,22 +94,21 @@ const MyRecipe = () => {
     };
 
     const handleEdit = (id) => {
-
         navigate(`/edit-recipe/${id}`);
     };
 
 
     if (isLoadingRecipes || loading) {
         return <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
-                    <span className="loading loading-spinner loading-lg"></span>
-                    <p className="ml-2">Loading your recipes...</p>
-               </div>;
+            <span className="loading loading-spinner loading-lg"></span>
+            <p className="ml-2">Loading your recipes...</p>
+        </div>;
     }
 
     if (error) {
         return <div className="min-h-screen flex items-center justify-center bg-gray-900 text-red-500">
-                    <p>{error}</p>
-               </div>;
+            <p>{error}</p>
+        </div>;
     }
 
     if (myRecipes.length === 0) {
@@ -131,28 +130,32 @@ const MyRecipe = () => {
             <h1 className="text-4xl font-bold text-center text-blue-400 mb-8">My Recipes</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {myRecipes.map((recipe) => (
+
                     <div key={recipe._id} className="bg-gray-800 rounded-lg shadow-lg overflow-hidden border border-gray-700 hover:shadow-xl transition-shadow duration-300">
-                        <img src={recipe.image} alt={recipe.title} className="w-full h-48 object-cover" />
-                        <div className="p-5">
-                            <h2 className="text-xl font-semibold mb-2 text-blue-300">{recipe.title}</h2>
-                            <p className="text-gray-400 text-sm mb-4">
-                                {recipe.cuisineType} | {recipe.preparationTime} mins
-                            </p>
-                            <div className="flex justify-between items-center mt-4">
-                                <button
-                                    onClick={() => handleEdit(recipe._id)}
-                                    className="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors duration-200 cursor-pointer"
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    onClick={() => handleDelete(recipe._id)}
-                                    className="px-4 py-2 bg-red-500 hover:bg-red-700 text-white font-semibold cursor-pointer rounded-md transition-colors duration-200"
-                                >
-                                    Delete
-                                </button>
+                        <Link to={`/recipe/${recipe._id}`} className="block">
+                            <img src={recipe.image} alt={recipe.title} className="w-full h-48 object-cover" />
+                            <div className="p-5">
+                                <h2 className="text-xl font-semibold mb-2 text-blue-300">{recipe.title}</h2>
+                                <p className="text-gray-400 text-sm mb-4">
+                                    {recipe.cuisineType} | Likes: {recipe.likeCount}
+                                </p>
                             </div>
+                        </Link>
+                        <div className="flex justify-between items-center mt-4 p-5 pt-0"> 
+                            <button
+                                onClick={() => handleEdit(recipe._id)}
+                                className="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors duration-200 cursor-pointer"
+                            >
+                                Edit
+                            </button>
+                            <button
+                                onClick={() => handleDelete(recipe._id)}
+                                className="px-4 py-2 bg-red-500 hover:bg-red-700 text-white font-semibold cursor-pointer rounded-md transition-colors duration-200"
+                            >
+                                Delete
+                            </button>
                         </div>
+
                     </div>
                 ))}
             </div>

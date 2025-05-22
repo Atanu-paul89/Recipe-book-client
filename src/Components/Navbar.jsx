@@ -63,7 +63,7 @@ const Navbar = () => {
     return (
         <div className="navbar bg-gray-900 text-white py-2 px-4 md:px-8 lg:px-12 h-20 shadow-lg"> 
             <div className="navbar-start">
-                {/* Dropdown for mobile (Hamburger menu) */}
+                {/* Dropdown for mobile */}
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden p-2">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -72,7 +72,7 @@ const Navbar = () => {
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-gray-800 rounded-box z-[1] mt-3 w-52 p-2 shadow-lg text-gray-200"
+                        className="menu menu-sm dropdown-content bg-gray-800 rounded-box z-[1] mt-3  w-35 p-2 pb-3 shadow-lg text-gray-200"
                     >
                         {links}
                     </ul>

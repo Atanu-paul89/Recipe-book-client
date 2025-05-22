@@ -1,22 +1,19 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router'; 
 import useAuth from '../Firebase/useAuth';
 import { FaHeart } from 'react-icons/fa';
 
-
-
 const RecipeDetails = () => {
-    const { id } = useParams(); 
-    const { user } = useAuth(); 
+    const { id } = useParams();
+    const { user } = useAuth();
     const [recipe, setRecipe] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isOwner, setIsOwner] = useState(false);
-    const [likeMessage, setLikeMessage] = useState(''); 
+    const [likeMessage, setLikeMessage] = useState('');
 
-    const backendUrl = "http://localhost:3000"; 
+    const backendUrl = "http://localhost:3000";
+
     useEffect(() => {
         const fetchRecipeDetails = async () => {
             setLoading(true);
@@ -27,7 +24,7 @@ const RecipeDetails = () => {
 
                 if (response.ok) {
                     setRecipe(data);
-       
+
                     if (user && data.creatorEmail === user.email) {
                         setIsOwner(true);
                     } else {
@@ -47,7 +44,7 @@ const RecipeDetails = () => {
         if (id) {
             fetchRecipeDetails();
         }
-    }, [id, user]); 
+    }, [id, user]);
 
 
     const handleLike = async () => {
@@ -67,13 +64,13 @@ const RecipeDetails = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ userEmail: user.email }), 
+                body: JSON.stringify({ userEmail: user.email }),
             });
 
             const data = await response.json();
 
             if (response.ok) {
-            
+
                 setRecipe(prevRecipe => ({
                     ...prevRecipe,
                     likeCount: (prevRecipe.likeCount || 0) + 1,
@@ -138,23 +135,22 @@ const RecipeDetails = () => {
                         </p>
 
                         {/* Like Count Display */}
-                        <div className="flex items-center text-lg text-green-400 mb-4">
-                           
+                        <div className="flex  items-center text-lg text-green-400 mb-4">
                             <span className="mr-2 text-3xl">❤️</span>
-                            <span className="font-bold">{recipe.likeCount || 0}</span>&nbsp; people interested in this recipe
+                            <span className="font-bold">{recipe.likeCount || 0} People interested in this recipe</span>
                         </div>
 
                         {/* Like Button */}
                         <button
                             onClick={handleLike}
-                            disabled={isOwner || !user} // Disable if owner or not logged in
+                            disabled={isOwner || !user} 
                             className={`flex items-center justify-center gap-2 px-6 py-2 rounded-md text-lg font-semibold transition-colors duration-300 cursor-pointer
                                 ${isOwner || !user
                                     ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
                                     : 'bg-red-500 hover:bg-red-600 text-white'
                                 }`}
                         >
-                            {FaHeart && <FaHeart className="text-xl mt-1" />} 
+                            {FaHeart && <FaHeart className="text-xl mt-1" />}
                             Like This Recipe
                         </button>
                         {likeMessage && (
@@ -167,6 +163,30 @@ const RecipeDetails = () => {
                         )}
                     </div>
                 </div>
+
+                {/* Recipe Owner Details Section */}
+                <section className="mb-8 p-6 bg-gray-700 rounded-lg shadow-md border border-gray-600">
+                    <h2 className="text-3xl font-bold text-blue-400 mb-4 border-b pb-2 border-gray-600">Recipe Owner</h2>
+                    <div className="flex items-center gap-4">
+                        {recipe.creatorPhotoURL ? (
+                            <img
+                                src={recipe.creatorPhotoURL}
+                                alt={recipe.creatorName || 'Recipe Owner'}
+                                className="w-16 h-16 rounded-full object-cover border-2 border-blue-400"
+                            />
+                        ) : (
+                            <div className="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center text-white text-xl font-bold">
+                                {recipe.creatorName ? recipe.creatorName.charAt(0).toUpperCase() : 'U'}
+                            </div>
+                        )}
+                        <div>
+                            <p className="text-xl font-semibold text-white">{recipe.creatorName || 'Unknown Owner'}</p>
+                            <p className="text-gray-300 text-sm">{recipe.creatorEmail}</p>
+
+                        </div>
+                    </div>
+                </section>
+
 
                 {/* Ingredients Section */}
                 <section className="mb-8">

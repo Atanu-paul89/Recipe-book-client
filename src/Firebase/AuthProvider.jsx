@@ -1,56 +1,3 @@
-// import React, { useEffect, useState } from 'react';
-// import { createUserWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
-// import { AuthContext } from './AuthContext';
-// import { auth } from './firebase.config';
-
-// const AuthProvider = ({ children }) => {
-//     const [user, setUser] = useState(null);
-//     const [loading, setloading] = useState(true);
-
-
-//     const createUser = (email, password) => {
-//         return createUserWithEmailAndPassword(auth, email, password);
-//     };
-
-//     const signinuser = (email, password) => {
-//         return signInWithEmailAndPassword(auth, email, password);
-//     };
-
-//     const PasswordReset = (email) => {
-//         return sendPasswordResetEmail(auth, email);
-
-//     };
-
-//     const userinfo = {
-//         user,
-//         loading,
-//         createUser,
-//         signinuser,
-//         PasswordReset,
-//     };
-
-//     useEffect(() => {
-//         const unsubscribe = onAuthStateChanged(auth, (authUser) => {
-//             setUser(authUser);
-//             setloading(false);
-//         });
-//         return () => {
-//             unsubscribe();
-//         };
-//     }, []);
-
-//     return (
-//         <AuthContext.Provider value={userinfo}>
-//             {!loading && children}
-//         </AuthContext.Provider>
-//     );
-// };
-
-// export default AuthProvider;
-
-
-// new code // 
-
 import React, { useEffect, useState } from 'react';
 import {
     createUserWithEmailAndPassword,
@@ -66,15 +13,16 @@ import { AuthContext } from './AuthContext';
 import { auth } from './firebase.config';
 
 
-const googleProvider = new GoogleAuthProvider(); // NEW
+const googleProvider = new GoogleAuthProvider(); 
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true); // Renamed from setloading for consistency
+    const [loading, setLoading] = useState(true); 
 
     const createUser = (email, password) => {
         setLoading(true);
-        return createUserWithEmailAndPassword(auth, email, password);
+        return createUserWithEmailAndPassword(auth, email, password)
+        .finally(() => setLoading(false));
     };
 
     const signinuser = (email, password) => {
@@ -83,13 +31,13 @@ const AuthProvider = ({ children }) => {
         .finally(() => setLoading(false));
     };
 
-    const googleSignIn = () => { // NEW - for social login
+    const googleSignIn = () => { 
         setLoading(true);
         return signInWithPopup(auth, googleProvider)
         .finally(() => setLoading(false));
     };
 
-    const updateUserProfile = (name, photoURL) => { // NEW - for updating display name/photo
+    const updateUserProfile = (name, photoURL) => { 
         setLoading(true);
         return updateProfile(auth.currentUser, {
             displayName: name,
@@ -97,7 +45,7 @@ const AuthProvider = ({ children }) => {
         });
     };
 
-    const logOut = () => { // NEW - for logout functionality
+    const logOut = () => { 
         setLoading(true);
         return signOut(auth);
     };
@@ -111,16 +59,16 @@ const AuthProvider = ({ children }) => {
         loading,
         createUser,
         signinuser,
-        googleSignIn,   // NEW
-        updateUserProfile, // NEW
-        logOut,         // NEW
+        googleSignIn,   
+        updateUserProfile, 
+        logOut,         
         PasswordReset,
     };
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (authUser) => {
             setUser(authUser);
-            setLoading(false); // Use setLoading
+            setLoading(false); 
         });
         return () => {
             unsubscribe();
@@ -128,8 +76,7 @@ const AuthProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={userinfo}>
-            
+        <AuthContext.Provider value={userinfo}>     
             {!loading && children}
         </AuthContext.Provider>
     );
