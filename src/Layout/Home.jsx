@@ -34,7 +34,7 @@ const Home = () => {
     useEffect(() => {
         const fetchTopRecipes = async () => {
             try {
-                const backendUrl = "http://localhost:3000";
+                const backendUrl = "https://recipe-book-server-nu.vercel.app";
 
                 const response = await fetch(`${backendUrl}/recipes/top`);
                 const data = await response.json();

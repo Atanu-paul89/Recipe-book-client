@@ -69,7 +69,7 @@ const AddRecipe = () => {
         console.log("Recipe data to send:", recipeData);
 
         try {
-            const backendUrl = "http://localhost:3000"; 
+            const backendUrl = "https://recipe-book-server-nu.vercel.app"; 
             const response = await fetch(`${backendUrl}/recipes`, {
                 method: 'POST',
                 headers: {

@@ -17,7 +17,7 @@ const AllRecipes = () => {
         setLoading(true);
         setError(null);
         try {
-            const backendUrl = "http://localhost:3000";
+            const backendUrl = "https://recipe-book-server-nu.vercel.app";
             const url = cuisineType ? `${backendUrl}/recipes?cuisineType=${cuisineType}` : `${backendUrl}/recipes`;
 
             const response = await fetch(url);

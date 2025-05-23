@@ -27,7 +27,7 @@ const EditRecipe = () => {
     useEffect(() => {
         const fetchRecipeForEdit = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/recipes/${id}`);
+                const response = await axios.get(`https://recipe-book-server-nu.vercel.app/recipes/${id}`);
                 const fetchedRecipe = response.data;
 
 
@@ -76,7 +76,7 @@ const EditRecipe = () => {
         };
 
         try {
-            const response = await axios.put(`http://localhost:3000/recipes/${id}`, updatedData);
+            const response = await axios.put(`https://recipe-book-server-nu.vercel.app/recipes/${id}`, updatedData);
             if (response.data.modifiedCount > 0) { 
                 toast.success("Recipe updated successfully!");
                 navigate('/myrecipes'); 

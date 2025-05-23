@@ -13,7 +13,7 @@ const MyRecipe = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    const backendUrl = "http://localhost:3000"; 
+    const backendUrl = "https://recipe-book-server-nu.vercel.app"; 
 
    
     const fetchMyRecipes = async () => {

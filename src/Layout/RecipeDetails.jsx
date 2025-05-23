@@ -16,7 +16,7 @@ const RecipeDetails = () => {
     const [isOwner, setIsOwner] = useState(false);
     const [likeMessage, setLikeMessage] = useState('');
 
-    const backendUrl = "http://localhost:3000";
+    const backendUrl = "https://recipe-book-server-nu.vercel.app";
 
     useEffect(() => {
         const fetchRecipeDetails = async () => {
