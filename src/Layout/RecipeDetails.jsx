@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
+
+import  { useState, useEffect } from 'react';
 import { useParams } from 'react-router'; 
 import useAuth from '../Firebase/useAuth';
 import { FaHeart } from 'react-icons/fa';
+import Lottie from 'lottie-react'; 
+
+import loadingAnimation from './Animation - 1747976234428.json'; 
 
 const RecipeDetails = () => {
     const { id } = useParams();
@@ -19,12 +23,14 @@ const RecipeDetails = () => {
             setLoading(true);
             setError(null);
             try {
+
+                await new Promise(resolve => setTimeout(resolve, 500)); 
+
                 const response = await fetch(`${backendUrl}/recipes/${id}`);
                 const data = await response.json();
 
                 if (response.ok) {
                     setRecipe(data);
-
                     if (user && data.creatorEmail === user.email) {
                         setIsOwner(true);
                     } else {
@@ -70,7 +76,6 @@ const RecipeDetails = () => {
             const data = await response.json();
 
             if (response.ok) {
-
                 setRecipe(prevRecipe => ({
                     ...prevRecipe,
                     likeCount: (prevRecipe.likeCount || 0) + 1,
@@ -87,9 +92,15 @@ const RecipeDetails = () => {
 
     if (loading) {
         return (
-            <div className="flex justify-center items-center min-h-screen bg-gray-900 text-white">
-                <span className="loading loading-spinner loading-lg text-blue-500"></span>
-                <p className="ml-2">Loading recipe...</p>
+            <div className="flex flex-col justify-center items-center min-h-screen bg-gray-900 text-white">
+                {/* Lottie Animation  */}
+                <Lottie
+                    animationData={loadingAnimation}
+                    loop={true}
+                    autoplay={true}
+                    style={{ width: 200, height: 200 }} 
+                />
+                <p className="ml-2 text-lg mt-4">Loading recipe...</p>
             </div>
         );
     }
@@ -143,7 +154,7 @@ const RecipeDetails = () => {
                         {/* Like Button */}
                         <button
                             onClick={handleLike}
-                            disabled={isOwner || !user} 
+                            disabled={isOwner || !user}
                             className={`flex items-center justify-center gap-2 px-6 py-2 rounded-md text-lg font-semibold transition-colors duration-300 cursor-pointer
                                 ${isOwner || !user
                                     ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
