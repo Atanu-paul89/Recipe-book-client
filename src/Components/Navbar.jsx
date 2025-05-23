@@ -104,7 +104,7 @@ const Navbar = () => {
                                     <FaUserCircle size={36} className="text-blue-400" /> 
                                 )}
                                 
-                                <span className="ml-2 text-gray-300 text-sm hidden sm:block group-hover:text-blue-300">
+                                <span className=" ml-2 text-gray-300 text-sm hidden sm:block group-hover:text-blue-300">
                                     {user.displayName || user.email}
                                 </span>
                             </div>

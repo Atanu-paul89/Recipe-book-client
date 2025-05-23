@@ -18,7 +18,7 @@ const Footer = () => {
           <p className="lg:ml-6 text-sm text-[#155DFC]">
             Recipe Book Ltd.
             <br />
-            &copy;2025
+            &copy;RecipeBook. All rights reserved
           </p>
         </aside>
 
