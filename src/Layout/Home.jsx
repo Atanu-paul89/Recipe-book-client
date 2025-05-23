@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router'; 
 import Banner from '../Components/Banner';
+import useAuth from '../Firebase/useAuth';
 
 
 const getInitialTheme = () => {
@@ -19,6 +20,11 @@ const Home = () => {
     const [error, setError] = useState(null);
 
     const [theme, setTheme] = useState(getInitialTheme);
+    const { user } = useAuth();
+
+    const dynamicPositionClasses = user
+        ? "absolute top-5 right-15 lg:top-6 lg:right-50 z-50" 
+        : "absolute top-5 right-27 lg:top-6 lg:right-59 z-50"; 
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
@@ -81,7 +87,7 @@ const Home = () => {
         <div className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'}`}>
 
             {/* Theme toggle button */}
-            <div className="absolute top-5 right-15 lg:top-6 lg:right-46 z-50"> {/* Added absolute positioning */}
+            <div className={dynamicPositionClasses}> 
                 <label className="swap swap-rotate btn btn-circle bg-gray-700 text-white dark:bg-gray-200 dark:text-gray-800 border-none shadow-lg">
  
                     <input
