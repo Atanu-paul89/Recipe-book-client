@@ -1,11 +1,16 @@
 
 <img width="1881" height="914" alt="Screenshot 2025-08-08 130348" src="https://github.com/user-attachments/assets/7a42f7f8-7cb8-4012-9021-b3a324972d3f" />
+
 ## 🚀 Live Site
 🔗 (https://a10-recipe-book.web.app/)
+
 ---
+
 **Description:**
 Welcome to **RecipeBook** — a full-stack recipe management platform where users can explore, save, and interact with a rich collection of global cuisines. Built with modern web technologies, BookRecipe delivers a seamless and visually engaging experience for food lovers and developers alike.
+
 ---
+
 ## 📖 About the Project
 BookRecipe is a dynamic recipe-sharing web application featuring:
 - A responsive and animated frontend built with **React**, **Tailwind CSS**, **Framer Motion**, and **Lottie React**.
